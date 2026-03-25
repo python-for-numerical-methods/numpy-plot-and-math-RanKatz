@@ -1,24 +1,21 @@
 import numpy as np
 
-def normalized_array(data):
-    """
-    מנרמלת מערך נתונים לטווח של [0, 1] לפי שיטת Min-Max Scaling.
+def normalized_array(input_array):
+    # מציאת המינימום והמקסימום של המערך
+    min_val = np.min(input_array)
+    max_val = np.max(input_array)
     
-    הנוסחה לביצוע:
-    x_norm = (x - min) / (max - min)
+    # חישוב המכנה (הטווח)
+    diff = max_val - min_val
     
-    פרמטרים:
-    data (list or np.array): מערך של מספרים.
-    
-    מחזירה:
-    np.array: מערך מנורמל. אם כל הערכים במערך זהים, יש להחזיר מערך של אפסים.
-    """
-    # המרת הקלט ל-numpy array לצורך חישובים וקטוריים
-    data = np.array(data)
-    
-    # --- כיתבו את הקוד שלכם כאן ---
-    pass
-    # חשוב לזכור להחליף את pass ב- return
+    # אם כל הערכים שווים - מחזירים מערך אפסים (לפי ההוראות)
+    if diff == 0:
+        new_array = np.zeros_like(input_array, dtype=float)
+    else:
+        # חישוב נרמול וקטורי (הסוגריים קריטיים לתוצאה נכונה)
+        new_array = (input_array - min_val) / diff
+        
+    return new_array
 
 if __name__ == "__main__":
     # כאן הסטודנטים יכולים להריץ בדיקה עצמית מהירה

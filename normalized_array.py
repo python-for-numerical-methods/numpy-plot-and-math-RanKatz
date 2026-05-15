@@ -1,24 +1,28 @@
 import numpy as np
 
-def normalized_array(input_array):
-    # מציאת המינימום והמקסימום של המערך
-    min_val = np.min(input_array)
-    max_val = np.max(input_array)
+def normalized_array(arr_in):
+    # המרה למערך מסוג float
+    arr = np.array(arr_in, dtype=float)
     
-    # חישוב המכנה (הטווח)
-    diff = max_val - min_val
-    
-    # אם כל הערכים שווים - מחזירים מערך אפסים (לפי ההוראות)
-    if diff == 0:
-        new_array = np.zeros_like(input_array, dtype=float)
-    else:
-        # חישוב נרמול וקטורי (הסוגריים קריטיים לתוצאה נכונה)
-        new_array = (input_array - min_val) / diff
+    # חומת מגן: טיפול במקרה של מערך ריק
+    if len(arr) == 0:
+        return np.array([])
         
-    return new_array
+    # חישוב הערך המינימלי והמקסימלי פעם אחת בלבד
+    min_val = np.min(arr)
+    max_val = np.max(arr)
+    
+    # אם המינימום שווה למקסימום, כל האיברים זהים
+    if min_val == max_val:
+        return np.zeros_like(arr)
+        
+    # ביצוע הנרמול (שימוש במשתנים שכבר חישבנו חוסך פעולות כפולות)
+    result_arr = (arr - min_val) / (max_val - min_val)
+    
+    return result_arr
 
 if __name__ == "__main__":
-    # כאן הסטודנטים יכולים להריץ בדיקה עצמית מהירה
-    test_data = [10, 20, 30, 40, 50]
-    print(f"Original: {test_data}")
-    print(f"Normalized: {normalized_array(test_data)}")
+    # נתוני בדיקה
+    sample_list = [10, 20, 30, 40, 50]
+    print(f"Before normalization: {sample_list}")
+    print(f"After normalization:  {normalized_array(sample_list)}")
